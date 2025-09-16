@@ -1,4 +1,6 @@
 fluidPage(
+  #themeSelector(), # ou bslib
+   theme = shinytheme("journal"),
   # Ajouter une image dans le titre de l'application
   tags$head(
     tags$title("Application Allociné"),
@@ -8,18 +10,20 @@ fluidPage(
         align-items: center;
       }
       .shiny-title img {
-        width: 300px; /* ajuster la taille de l'image */
-        margin-right: 100px;
+        width: 3000px; /* ajuster la taille de l'image */
+        margin-right: 0px;
+        height: 150px
       }
     "))
   ),
   
   # Titre avec image
   div(class = "shiny-title",
-      img(src = "logo_allocine.jpg"), # Remplacez par le nom de votre image dans le dossier www
-      h1("Application Allociné")
+      img(src = "logo_allocine.jpg") # Remplacez par le nom de votre image dans le dossier www
   ),
-  
+  navbarPage("Application allocine",
+             tabPanel("principal" ,#page principal
+             
   # Sidebar avec un selectInput pour genre et couleur
   sidebarLayout(
     sidebarPanel(
@@ -36,7 +40,17 @@ fluidPage(
     
     # Affichage du graphique
     mainPanel(
-      plotlyOutput("graph_nombre_film_annee")
+      tabsetPanel(  
+        tabPanel("graphique",
+                 plotlyOutput("graph_nombre_film_annee")),
+        tabPanel("Tableau",
+                 DTOutput("table_evolution"))
+        )
+
     )
+  )
+  ),
+  tabPanel("A propos",
+           "ceci est un texte qui est censé etre à propos",strong("Allocine"))
   )
 )

@@ -7,7 +7,8 @@ library(ggplot2)
 library(forcats)
 library(plotly)
 library(lubridate)
-
+library(DT)
+library(shinythemes)
 # data ----
 data_allocine <- readr::read_csv2("data/data_allocine.csv")
 correspondance <- readxl::read_excel("data/correspondances_allocine.xlsx")
