@@ -15,7 +15,7 @@ function(input, output, session) {
       allocine_plot <- allocine_plot %>% 
         filter(reprise != TRUE)
     }
-    
+    return(allocine_plot)
     
   })
     output$graph_nombre_film_annee <- renderPlotly({
