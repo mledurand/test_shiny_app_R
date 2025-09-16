@@ -3,6 +3,7 @@ function(input, output, session) {
     
     output$graph_nombre_film_annee <- renderPlotly({
       
+      
       if(input$genre != "Tous les genres"){
         
         allocine_plot <- allo_cine %>% 
@@ -11,7 +12,10 @@ function(input, output, session) {
       else {
         allocine_plot <- allo_cine
       }
-      
+      if(input$reprise == FALSE){
+        allocine_plot <- allocine_plot %>% 
+          filter(reprise != TRUE)
+      }
       ggplotly(
         
         allocine_plot %>% 
@@ -20,8 +24,7 @@ function(input, output, session) {
           ggplot() +
           geom_line(aes(x = annee_de_sortie, y = n), color = input$couleur) +  
           labs(
-            title = "Evolution du nombre film par an",
-            subtitle = paste0("Genre choisi :",input$genre),
+            title =paste0( "Evolution du nombre film par an : ",input$genre),
             y = "nbr de film") +
           theme_bw()
       )

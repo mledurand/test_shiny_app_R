@@ -29,7 +29,9 @@ fluidPage(
                   choices = c("Tous les genres", unique(allo_cine$genre))),
       selectInput("couleur",
                   "Choisir la couleur :",
-                  choices = c("salmon", "darkblue", "darkgreen"))
+                  choices = c("salmon", "darkblue", "darkgreen")),
+      checkboxInput("reprise",
+                   "Inclure les film repris ?")
     ),
     
     # Affichage du graphique
