@@ -11,7 +11,7 @@ fluidPage(
       }
       .shiny-title img {
         width: 3000px; /* ajuster la taille de l'image */
-        margin-right: 0px;
+        margin-right: 1px;
         height: 150px
       }
     "))
@@ -36,16 +36,16 @@ fluidPage(
                   choices = c("salmon", "darkblue", "darkgreen")),
       checkboxInput("reprise",
                    "Inclure les film repris ?"),
-      actionBttn("go","Valider!")
+      actionButton("go","Valider!")
     ),
     
     # Affichage du graphique
     mainPanel(
       tabsetPanel(  
         tabPanel("graphique",
-                 plotlyOutput("graph_nombre_film_annee")),
+                 girafeOutput("graph_nombre_film_annee")),
         tabPanel("Tableau",
-                 DTOutput("table_evolution"))
+                 uiOutput("table_evolution"))
         )
 
     )

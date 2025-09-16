@@ -9,8 +9,13 @@ library(plotly)
 library(lubridate)
 library(DT)
 library(shinythemes)
+library(shinyWidgets)
+library(ggiraph)
+library(kableExtra)
+
 # data ----
 data_allocine <- readr::read_csv2("data/data_allocine.csv")
+
 correspondance <- readxl::read_excel("data/correspondances_allocine.xlsx")
 
 allo_cine <- data_allocine %>% 
