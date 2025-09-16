@@ -2,7 +2,7 @@
 function(input, output, session) {
     
   
-  allocine_plot <- reactive({
+  allocine_plot <- eventReactive(input$go, {
     if(input$genre != "Tous les genres"){
       
       allocine_plot <- allo_cine %>% 

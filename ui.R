@@ -35,7 +35,8 @@ fluidPage(
                   "Choisir la couleur :",
                   choices = c("salmon", "darkblue", "darkgreen")),
       checkboxInput("reprise",
-                   "Inclure les film repris ?")
+                   "Inclure les film repris ?"),
+      actionBttn("go","Valider!")
     ),
     
     # Affichage du graphique
