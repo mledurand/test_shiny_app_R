@@ -1,23 +1,40 @@
-# Define UI for application that draws a histogram
-fluidPage(# Application title
-  titlePanel("Application Allociné"),
+fluidPage(
+  # Ajouter une image dans le titre de l'application
+  tags$head(
+    tags$title("Application Allociné"),
+    tags$style(HTML("
+      .shiny-title {
+        display: flex;
+        align-items: center;
+      }
+      .shiny-title img {
+        width: 300px; /* ajuster la taille de l'image */
+        margin-right: 100px;
+      }
+    "))
+  ),
   
-  # Sidebar with a slider input for number of bins
+  # Titre avec image
+  div(class = "shiny-title",
+      img(src = "logo_allocine.jpg"), # Remplacez par le nom de votre image dans le dossier www
+      h1("Application Allociné")
+  ),
+  
+  # Sidebar avec un selectInput pour genre et couleur
   sidebarLayout(
     sidebarPanel(
       "Barre LATERAL !!!!",
       selectInput("genre",
                   "Choix du Genre :",
-                  choices = c(
-                    "Tous les genres", unique(allo_cine$genre)
-                  )),
-      selectInput(
-        "couleur",
-        "couleur !!!",
-        choices = c("salmon", "darkblue", "darkgreen")
-      )
+                  choices = c("Tous les genres", unique(allo_cine$genre))),
+      selectInput("couleur",
+                  "Choisir la couleur :",
+                  choices = c("salmon", "darkblue", "darkgreen"))
     ),
     
-    # Show a plot of the generated distribution
-    mainPanel(plotlyOutput("graph_nombre_film_annee"))
-  ))
+    # Affichage du graphique
+    mainPanel(
+      plotlyOutput("graph_nombre_film_annee")
+    )
+  )
+)
