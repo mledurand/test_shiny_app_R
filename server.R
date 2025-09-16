@@ -1,28 +1,18 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
-library(shiny)
-
 # Define server logic required to draw a histogram
 function(input, output, session) {
-
-    output$distPlot <- renderPlot({
-
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = input$couleur, border = 'white',
-             xlab = 'Waiting time to next eruption (in mins)',
-             main = 'Histogram of waiting times')
-
+    
+    output$graph_nombre_film_annee <- renderPlotly({
+      ggplotly(
+        allo_cine %>% 
+          mutate(annee_de_sortie = year(date_sortie)) %>% 
+          filter(genre == input$genre) %>% 
+          count(annee_de_sortie) %>% 
+          ggplot() +
+          geom_line(aes(x = annee_de_sortie, y = n), color = input$couleur) +  
+          ggtitle("Nombre de film par année") +
+          labs(y = "nbr de film") +
+          theme_bw()
+      )
     })
 
 }
