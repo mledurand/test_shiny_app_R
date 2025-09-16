@@ -1,24 +1,28 @@
 # Define server logic required to draw a histogram
 function(input, output, session) {
     
+  
+  allocine_plot <- reactive({
+    if(input$genre != "Tous les genres"){
+      
+      allocine_plot <- allo_cine %>% 
+        filter(genre == input$genre)
+    }
+    else {
+      allocine_plot <- allo_cine
+    }
+    if(input$reprise == FALSE){
+      allocine_plot <- allocine_plot %>% 
+        filter(reprise != TRUE)
+    }
+    
+    
+  })
     output$graph_nombre_film_annee <- renderPlotly({
       
-      
-      if(input$genre != "Tous les genres"){
-        
-        allocine_plot <- allo_cine %>% 
-          filter(genre == input$genre)
-      }
-      else {
-        allocine_plot <- allo_cine
-      }
-      if(input$reprise == FALSE){
-        allocine_plot <- allocine_plot %>% 
-          filter(reprise != TRUE)
-      }
       ggplotly(
         
-        allocine_plot %>% 
+        allocine_plot() %>% 
           mutate(annee_de_sortie = year(date_sortie)) %>% 
           count(annee_de_sortie) %>% 
           ggplot() +
@@ -33,19 +37,8 @@ function(input, output, session) {
     })
     
     output$table_evolution <- renderDT({
-      if(input$genre != "Tous les genres"){
-        
-        allocine_plot <- allo_cine %>% 
-          filter(genre == input$genre)
-      }
-      else {
-        allocine_plot <- allo_cine
-      }
-      if(input$reprise == FALSE){
-        allocine_plot <- allocine_plot %>% 
-          filter(reprise != TRUE)
-      }
-      df <-         allocine_plot %>% 
+
+      df <-allocine_plot() %>% 
         mutate(annee_de_sortie = year(date_sortie)) %>% 
         count(annee_de_sortie)
       
